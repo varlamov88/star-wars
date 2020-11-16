@@ -1,32 +1,59 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<div id="app">
+		<Header />
+		<v-progress-circular
+			indeterminate
+			color="green"
+			size="70"
+			class="progress"
+		/>
+		<div class="content">
+			<router-view />
+		</div>
+		<footer class="footer"></footer>
+	</div>
 </template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import Header from "@/components/Header.vue";
+
+@Component({
+	components: {
+		Header,
+	},
+})
+export default class App extends Vue {}
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 100vh;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.progress {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.content {
+	display: flex;
+	justify-content: center;
+	padding-top: 90px;
+}
+.progress {
+	margin: auto;
+}
+.footer {
+	background-color: #000;
+	height: 35px;
+	width: 100%;
+	margin-top: auto;
 }
 </style>
