@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import PeopleRouter from "../modules/people/router";
 
 Vue.use(VueRouter);
 
@@ -9,11 +10,7 @@ const routes: Array<RouteConfig> = [
 		name: "Home",
 		redirect: { name: "People" },
 	},
-	{
-		path: "/people",
-		name: "People",
-		component: () => import(/* webpackChunkName: "people" */ "../modules/people/People.vue"),
-	},
+	...PeopleRouter,
 ];
 
 const router = new VueRouter({

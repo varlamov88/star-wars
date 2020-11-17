@@ -1,29 +1,22 @@
 module.exports = {
+	root: true,
 	env: {
-		browser: true,
-		es2020: true,
+		node: true,
 	},
 	extends: [
-		// "prettier",
 		"plugin:vue/essential",
 		"@vue/airbnb",
 		"@vue/typescript/recommended",
-		// "eslint:recommended",
-		// "plugin:vue/essential",
-		// "plugin:@typescript-eslint/recommended"
 	],
 	parserOptions: {
-		ecmaVersion: 12,
-		parser: "@typescript-eslint/parser",
-		sourceType: "module",
+		ecmaVersion: 2020,
 	},
 	plugins: [
-		"vue",
-		"@typescript-eslint",
+		"prettier",
 	],
 	rules: {
 		"no-tabs": "off",
 		indent: ["error", "tab"],
-		quotes: ["error", "double"],
+		quotes: ["off", "double"],
 	},
 };

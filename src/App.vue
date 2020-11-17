@@ -1,24 +1,38 @@
 <template>
 	<div id="app">
-		<Header />
-		<v-progress-circular
-			indeterminate
-			color="green"
-			size="70"
-			class="progress"
-		/>
-		<div class="content">
-			<router-view />
-		</div>
-		<footer class="footer"></footer>
+		<v-app>
+			<Header />
+
+			<v-progress-circular
+				v-if="isLoaderVisible"
+				indeterminate
+				color="green"
+				size="70"
+				class="progress"
+			/>
+
+			<v-main>
+				<transition name="fade" mode="out-in">
+					<div class="content pb-3" :key="`content-block-${$route.fullPath}`">
+						<router-view />
+					</div>
+				</transition>
+			</v-main>
+
+			<footer class="footer"></footer>
+		</v-app>
 	</div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import Header from "@/components/Header.vue";
+import { mapState } from "vuex";
 
 @Component({
+	computed: {
+		...mapState(["isLoaderVisible"]),
+	},
 	components: {
 		Header,
 	},

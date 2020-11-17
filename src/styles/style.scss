@@ -1,2 +1,17 @@
 @import "libs";
 @import "variables";
+
+.fade-enter-active,
+.fade-leave-active,
+.fade-move {
+	transition: all 0.2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+
+[v-cloak] {
+	display: none;
+}

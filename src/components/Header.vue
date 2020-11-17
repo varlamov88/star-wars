@@ -25,6 +25,7 @@ export default class Header extends Vue {}
 	justify-content: center;
 	align-items: center;
 	position: fixed;
+	z-index: 10;
 	&__link {
 		height: 35px;
 	}
