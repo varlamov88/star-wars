@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "@/config";
 import { ILooseObject } from "@/interfaces";
+import { IPeople } from '../interfaces';
 
 interface IResponse {
 	data: {
@@ -8,6 +9,11 @@ interface IResponse {
 		next: string;
 		results: ILooseObject[];
 	};
+}
+
+export interface IDictionaries {
+	starships: ILooseObject[],
+	films: ILooseObject[],
 }
 
 async function getAllPages(response: IResponse): Promise<ILooseObject[]> {
@@ -32,10 +38,10 @@ export default {
 		dictionaries: {
 			starships: [],
 			films: [],
-		},
+		} as IDictionaries,
 	},
 	getters: {
-		starshipsMap(state: ILooseObject) {
+		starshipsMap(state: ILooseObject): ILooseObject {
 			const map: ILooseObject = {};
 			// eslint-disable-next-line
 			for (const starhip of state.dictionaries.starships) {
@@ -43,7 +49,7 @@ export default {
 			}
 			return map;
 		},
-		filmsMap(state: ILooseObject) {
+		filmsMap(state: ILooseObject): ILooseObject {
 			const map: ILooseObject = {};
 			// eslint-disable-next-line
 			for (const film of state.dictionaries.films) {
@@ -68,20 +74,20 @@ export default {
 	},
 	actions: {
 		loadPeople: {
-			handler: async (context: ILooseObject, page = 1) => {
+			handler: async (context: ILooseObject, page = 1): Promise<void> => {
 				axios
 					.get(`${API_URL}/people/?page=${page}`)
 					.then((response: IResponse) => {
 						context.commit("setPeopleCount", response.data.count);
 						context.commit("loadPeople", response.data.results);
 					})
-					.catch((error) => {
+					.catch(() => {
 						// TODO: handle error
 					});
 			},
 		},
 		loadDictionaries: {
-			handler: async (context: ILooseObject) => {
+			handler: async (context: ILooseObject): Promise<void> => {
 				const list: { name: string; mutationName: string }[] = [
 					{ name: "starships", mutationName: "loadStarships" },
 					{ name: "films", mutationName: "loadFilms" },
@@ -97,6 +103,12 @@ export default {
 					// TODO: //
 					throw new Error(e);
 				});
+			},
+		},
+		requestPeopleById: {
+			handler: async (_context: ILooseObject, id: number): Promise<IPeople> => {
+				const people = await axios.get(`${API_URL}/people/${id}/`) as IPeople;
+				return people;
 			},
 		},
 	},

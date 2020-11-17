@@ -39,7 +39,7 @@
 			</v-row>
 		</v-card-text>
 
-		<v-divider class="mx-4 mt-auto"></v-divider>
+		<v-divider class="mx-4 mt-auto" />
 
 		<v-card-actions class="py-4">
 			<v-btn

@@ -20,11 +20,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapActions, mapState } from "vuex";
-import { ILooseObject } from "@/interfaces";
 import { PER_PAGE } from "@/config";
 import Card from "./components/Card.vue";
-import { namespace } from "./store";
+import { namespace, IDictionaries } from "./store";
 import { PeopleRouteNames } from "./router";
+import { IPeople } from "./interfaces";
 
 @Component({
 	computed: {
@@ -38,11 +38,11 @@ import { PeopleRouteNames } from "./router";
 	},
 })
 export default class People extends Vue {
-	people!: ILooseObject[];
+	people!: IPeople[];
 
 	peopleCount!: number;
 
-	dictionaries!: ILooseObject;
+	dictionaries!: IDictionaries;
 
 	loadPeople!: (page: number) => Promise<void>;
 
