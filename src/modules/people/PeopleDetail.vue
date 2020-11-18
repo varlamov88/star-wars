@@ -24,7 +24,6 @@
 					<v-row>
 						<v-col>
 							<v-list color="cyan" flat class="pa-0">
-								<!-- <v-list-item-group v-for="(prop, i) in propsList" :key="i"> -->
 								<v-list-item v-for="(prop, i) in propsList" :key="i">
 									<template #default>
 										<v-list-item-content>
@@ -37,7 +36,6 @@
 										</v-list-item-content>
 									</template>
 								</v-list-item>
-								<!-- </v-list-item-group> -->
 							</v-list>
 						</v-col>
 

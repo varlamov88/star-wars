@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "@/config";
 import { ILooseObject } from "@/interfaces";
-import { IPeople } from '../interfaces';
+import { IPeople } from "../interfaces";
 
 interface IResponse {
 	data: {
@@ -12,8 +12,8 @@ interface IResponse {
 }
 
 export interface IDictionaries {
-	starships: ILooseObject[],
-	films: ILooseObject[],
+	starships: ILooseObject[];
+	films: ILooseObject[];
 }
 
 async function getAllPages(response: IResponse): Promise<ILooseObject[]> {
@@ -81,8 +81,13 @@ export default {
 						context.commit("setPeopleCount", response.data.count);
 						context.commit("loadPeople", response.data.results);
 					})
-					.catch(() => {
-						// TODO: handle error
+					.catch((e) => {
+						context.commit(
+							"showSnackBar",
+							{ color: "error", text: "Ошибка загрузки данных" },
+							{ root: true },
+						);
+						throw new Error(e);
 					});
 			},
 		},
@@ -100,14 +105,18 @@ export default {
 				});
 
 				await Promise.all(promises).catch((e) => {
-					// TODO: //
+					context.commit(
+						"showSnackBar",
+						{ color: "error", text: "Ошибка загрузки данных" },
+						{ root: true },
+					);
 					throw new Error(e);
 				});
 			},
 		},
 		requestPeopleById: {
 			handler: async (_context: ILooseObject, id: number): Promise<IPeople> => {
-				const people = await axios.get(`${API_URL}/people/${id}/`) as IPeople;
+				const people = (await axios.get(`${API_URL}/people/${id}/`)) as IPeople;
 				return people;
 			},
 		},

@@ -1,8 +1,6 @@
 <template>
 	<div id="app">
 		<v-app>
-			<Header />
-
 			<v-progress-circular
 				v-if="isLoaderVisible"
 				indeterminate
@@ -10,6 +8,16 @@
 				size="70"
 				class="progress"
 			/>
+
+			<v-snackbar
+				bottom
+				right
+				:color="snackBar.color"
+				v-model="snackBar.visible"
+				>{{ snackBar.text }}</v-snackbar
+			>
+
+			<Header />
 
 			<v-main>
 				<transition name="fade" mode="out-in">
@@ -31,7 +39,7 @@ import { mapState } from "vuex";
 
 @Component({
 	computed: {
-		...mapState(["isLoaderVisible"]),
+		...mapState(["isLoaderVisible", "snackBar"]),
 	},
 	components: {
 		Header,
